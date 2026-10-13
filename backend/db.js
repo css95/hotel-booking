@@ -1,12 +1,35 @@
-require("dotenv").config();
-const mysql = require("mysql2/promise");
+const sqlite3 = require("sqlite3");
+const { open } = require("sqlite");
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    dateStrings: true
-});
+async function connectDatabase() {
 
-module.exports = pool;
+    try {
+        const database = await open({
+            filename: "./hotel.db",
+            driver: sqlite3.Database
+        });
+
+        await database.run (`
+            CREATE TABLE IF NOT EXISTS booking (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                room_type TEXT NOT NULL,
+                guest_name TEXT NOT NULL,
+                guest_email TEXT NOT NULL,
+                guest_phone TEXT NOT NULL,
+                check_in_date TEXT NOT NULL,
+                check_out_date TEXT NOT NULL
+            )
+        `);
+
+        console.log("Connected to database");
+
+        return database;
+
+    } catch(err) {
+        console.error("Error connecting to the database or creating the table", err.message);
+
+        throw err;
+    }
+}
+
+module.exports = connectDatabase();
