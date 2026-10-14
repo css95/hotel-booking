@@ -42,5 +42,12 @@ async function updateBooking(id, updatedBooking) {
 
 }
 
-module.exports = { getBookings, createBooking, updateBooking }
+async function deleteBooking(id) {
+
+    const db = await database;
+    await db.run("DELETE FROM booking WHERE id = ?", id);
+
+}
+
+module.exports = { getBookings, createBooking, updateBooking, deleteBooking }
 

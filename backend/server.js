@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const { getBookings, createBooking, updateBooking } = require("./dao/bookingDao");
+const { getBookings, createBooking, updateBooking, deleteBooking } = require("./dao/bookingDao");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.get("/bookings", async (req, res) => {
+app.get('/bookings', async (req, res) => {
 
     try {
         const bookings = await getBookings();
@@ -17,10 +17,9 @@ app.get("/bookings", async (req, res) => {
         console.log(`Something went wrong: ${error}`);
         res.status(500).json({ "message" : "Something went wrong" });
     }
+});
 
-})
-
-app.post("/bookings", async (req, res) => {
+app.post('/bookings', async (req, res) => {
 
     try {
         const bookingId = await createBooking(req.body);
@@ -29,12 +28,10 @@ app.post("/bookings", async (req, res) => {
     } catch(error) {
         console.log(`Something went wrong: ${error}`);
         res.status(500).json({ "message" : "Something went wrong" });
-        
     }
+});
 
-})
-
-app.put("/bookings/:id", async (req, res) => {
+app.put('/bookings/:id', async (req, res) => {
 
     try {
         await updateBooking(req.params.id, req.body);
@@ -43,11 +40,21 @@ app.put("/bookings/:id", async (req, res) => {
     } catch(error) {
         console.log(`Something went wrong: ${error}`);
         res.status(500).json({ "message" : "Something went wrong" });
-
     }
+});
 
-})
+app.delete('/bookings/:id', async (req, res) => {
+
+    try {
+        await deleteBooking(req.params.id);
+        res.status(200).json({ "message" : "Booking deleted" });
+
+    } catch(error) {
+        console.log(`Something went wrong: ${error}`);
+        res.status(500).json({ "message" : "Something went wrong" });
+    }
+});
 
 app.listen(3000, () => {
     console.log('API is running at http://localhost:3000');
-})
+});
