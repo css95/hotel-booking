@@ -25,6 +25,22 @@ async function createBooking(newBooking) {
 
 }
 
+async function updateBooking(id, updatedBooking) {
 
-module.exports = { getBookings, createBooking }
+    const db = await database;
+
+    await db.run(
+        "UPDATE booking SET room_type = ?, guest_name = ?, guest_email = ?, guest_phone = ?, check_in_date = ?, check_out_date = ? WHERE id = ?",
+        updatedBooking.room_type,
+        updatedBooking.guest_name,
+        updatedBooking.guest_email,
+        updatedBooking.guest_phone,
+        updatedBooking.check_in_date,
+        updatedBooking.check_out_date,
+        id
+    );
+
+}
+
+module.exports = { getBookings, createBooking, updateBooking }
 

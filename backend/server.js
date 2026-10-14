@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { getBookings, createBooking } = require("./dao/bookingDao");
+const { getBookings, createBooking, updateBooking } = require("./dao/bookingDao");
 
 const app = express();
 
@@ -34,9 +34,19 @@ app.post("/bookings", async (req, res) => {
 
 })
 
+app.put("/bookings/:id", async (req, res) => {
 
+    try {
+        await updateBooking(req.params.id, req.body);
+        res.status(200).json({ "message" : "Booking updated" });
 
+    } catch(error) {
+        console.log(`Something went wrong: ${error}`);
+        res.status(500).json({ "message" : "Something went wrong" });
 
+    }
+
+})
 
 app.listen(3000, () => {
     console.log('API is running at http://localhost:3000');
