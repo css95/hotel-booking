@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { getBookings, createBooking, updateBooking, deleteBooking } = require("./dao/bookingDao");
+const { getBookings, createBooking, updateBooking, deleteBooking } = require("./services/bookingService");
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get('/bookings', async (req, res) => {
 
     } catch(error) {
         console.log(`Something went wrong: ${error}`);
-        res.status(500).json({ "message" : "Something went wrong" });
+        res.status(error.status || 500).json({ message: error.message });
     }
 });
 
@@ -27,7 +27,7 @@ app.post('/bookings', async (req, res) => {
 
     } catch(error) {
         console.log(`Something went wrong: ${error}`);
-        res.status(500).json({ "message" : "Something went wrong" });
+        res.status(error.status || 500).json({ message: error.message })
     }
 });
 
@@ -39,7 +39,7 @@ app.put('/bookings/:id', async (req, res) => {
 
     } catch(error) {
         console.log(`Something went wrong: ${error}`);
-        res.status(500).json({ "message" : "Something went wrong" });
+        res.status(error.status || 500).json({ message: error.message })
     }
 });
 
@@ -51,7 +51,7 @@ app.delete('/bookings/:id', async (req, res) => {
 
     } catch(error) {
         console.log(`Something went wrong: ${error}`);
-        res.status(500).json({ "message" : "Something went wrong" });
+        res.status(error.status || 500).json({ message: error.message })
     }
 });
 
