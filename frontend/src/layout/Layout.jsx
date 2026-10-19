@@ -4,10 +4,12 @@ function Layout() {
     return (
         <div>
             <div>
-                <header>
-                    <Link to="/">Hotel Name</Link>
+                <header className="site-header">
+                    <div className="site-header__inner">
+                        <Link to="/" className="site-logo">Hotel Sjöaryd</Link>
+                    </div>
                 </header>
-                <main>
+                <main className="page">
                     <Outlet />
                 </main>
             </div>

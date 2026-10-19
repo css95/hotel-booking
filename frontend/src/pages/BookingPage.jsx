@@ -3,7 +3,7 @@ import RoomCard from '../components/RoomCard'
 import BookingForm from '../components/BookingForm'
 
 const rooms = [
-    {type: 'Single', name: 'Single Room', description: 'Single Room with Garden View', image: '/images/single.png'},
+    {type: 'Single', name: 'Single Room', description: 'Single Room with Beach View', image: '/images/single.png'},
     {type: 'Double', name: 'Double Room', description: 'Double Room with Beach View', image: '/images/double.png'}
 ]
 
@@ -17,7 +17,7 @@ function BookingPage() {
 
     return (
         <>
-            <h1>Book a room</h1>
+            <h1>Available rooms</h1>
             {selectedRoom === null ? (
                 rooms.map((room) => {
                     return <RoomCard key={room.type} room={room} onSelect={handleSelect} />

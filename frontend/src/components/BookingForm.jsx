@@ -42,7 +42,7 @@ function BookingForm({ roomType, onBack }) {
     const today = new Date().toLocaleDateString('sv-SE')
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="booking-form" onSubmit={handleSubmit}>
             <label>
                 Room type
                 <select name="room_type" value={formData.room_type} onChange={handleChange}>
@@ -76,11 +76,13 @@ function BookingForm({ roomType, onBack }) {
                 <input type="date" name="check_out_date" value={formData.check_out_date} min={formData.check_in_date} onChange={handleChange} required />
             </label>
 
-            <button type="submit">Confirm booking</button>
-            <button type="button" onClick={onBack}>Back to rooms</button>
+            <div>
+                <button className="button" type="submit">Confirm booking</button>
+                <button className="button button--secondary" type="button" onClick={onBack}>Back to rooms</button>
+            </div>
 
-            {errorMessage && <p>{errorMessage}</p>}
-            {successMessage && <p>{successMessage}</p>}
+            {errorMessage && <p className="message message--error">{errorMessage}</p>}
+            {successMessage && <p className="message message--success">{successMessage}</p>}
 
         </form>
     )
