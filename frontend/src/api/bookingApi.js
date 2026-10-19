@@ -15,3 +15,13 @@ export async function getBookings() {
     }
 
 }
+
+export async function createBooking(booking) {
+    try {
+        const response = await axios.post(API_URL, booking)
+        return response.data
+    } catch(error) {
+        console.log(error)
+        throw error
+    }
+}

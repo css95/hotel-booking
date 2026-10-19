@@ -1,4 +1,6 @@
-import RoomCard from "../components/RoomCard"
+import { useState } from 'react'
+import RoomCard from '../components/RoomCard'
+import BookingForm from '../components/BookingForm'
 
 const rooms = [
     {type: 'Single', name: 'Single Room', description: 'Single Room with Garden View', image: '/images/single.png'},
@@ -7,17 +9,22 @@ const rooms = [
 
 
 function BookingPage() {
+    const [selectedRoom, setSelectedRoom] = useState(null)
 
     function handleSelect(roomType) {
-        console.log(roomType)
+        setSelectedRoom(roomType)
     }
 
     return (
         <>
             <h1>Book a room</h1>
-            {rooms.map((room) => {
-                return <RoomCard key={room.type} room={room} onSelect={handleSelect} />
-            })}
+            {selectedRoom === null ? (
+                rooms.map((room) => {
+                    return <RoomCard key={room.type} room={room} onSelect={handleSelect} />
+                })
+            ) : ( 
+                <BookingForm roomType={selectedRoom} onBack={() => setSelectedRoom(null)} />
+            )}
         </>
     )
 }
