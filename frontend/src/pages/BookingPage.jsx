@@ -7,7 +7,6 @@ const rooms = [
     {type: 'Double', name: 'Double Room', description: 'Double Room with Beach View', image: '/images/double.png'}
 ]
 
-
 function BookingPage() {
     const [selectedRoom, setSelectedRoom] = useState(null)
 
@@ -19,9 +18,11 @@ function BookingPage() {
         <>
             <h1>Available rooms</h1>
             {selectedRoom === null ? (
-                rooms.map((room) => {
-                    return <RoomCard key={room.type} room={room} onSelect={handleSelect} />
-                })
+                <div className="room-list">
+                    {rooms.map((room) => {
+                        return <RoomCard key={room.type} room={room} onSelect={handleSelect} />
+                    })}
+                </div>
             ) : ( 
                 <BookingForm roomType={selectedRoom} onBack={() => setSelectedRoom(null)} />
             )}
