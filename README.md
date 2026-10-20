@@ -34,6 +34,7 @@ npm run dev
 
 ## API endpoints
 - GET /bookings
+- GET /bookings/:id
 - POST /bookings
 - PUT /bookings/:id
 - DELETE /bookings/:id
