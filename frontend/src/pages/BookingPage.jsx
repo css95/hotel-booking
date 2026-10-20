@@ -18,11 +18,16 @@ function BookingPage() {
         <>
             <h1>Available rooms</h1>
             {selectedRoom === null ? (
-                <div className="room-list">
-                    {rooms.map((room) => {
-                        return <RoomCard key={room.type} room={room} onSelect={handleSelect} />
-                    })}
-                </div>
+                <>
+                    <p>
+                        Welcome to Hotel Sjöaryd. A quiet hotel right by the sea, where you can wake up to the sound of the waves. Our rooms are bright and simply furnished, with a view of the beach and everything you need for a calm stay. Choose your room below and book in a minute.
+                    </p>
+                    <div className="room-list">
+                        {rooms.map((room) => {
+                            return <RoomCard key={room.type} room={room} onSelect={handleSelect} />
+                        })}
+                    </div>
+                </>
             ) : ( 
                 <BookingForm roomType={selectedRoom} onBack={() => setSelectedRoom(null)} />
             )}
