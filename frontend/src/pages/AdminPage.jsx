@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getBookings } from '../api/bookingApi'
+import { getBookings, deleteBooking } from '../api/bookingApi'
 
 function AdminPage() {
     const [bookings, setBookings] = useState([])
@@ -11,7 +11,7 @@ function AdminPage() {
                 const data = await getBookings()
                 setBookings(data)
 
-            } catch (error) {
+            } catch(error) {
                 console.log(error)
                 setErrorMessage('Could not load bookings')
             }
@@ -19,6 +19,16 @@ function AdminPage() {
 
         loadBookings()
     }, [])
+
+    async function handleDelete(id) {
+        try {
+            await deleteBooking(id)
+            setBookings(bookings.filter((booking) => booking.id !== id))
+        } catch(error) {
+            console.log(error)
+            setErrorMessage('Could not delete booking')
+        }
+    }
 
     return (
         <>
@@ -35,6 +45,7 @@ function AdminPage() {
                         <th>Guest Phone</th>
                         <th>Check-in</th>
                         <th>Check-out</th>
+                        <th>Manage booking</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +58,9 @@ function AdminPage() {
                             <td>{booking.guest_phone}</td>
                             <td>{booking.check_in_date}</td>
                             <td>{booking.check_out_date}</td>
+                            <td>
+                                <button className="button" onClick={() => handleDelete(booking.id)}>Delete</button>
+                            </td>
                         </tr>
                     ) )}
                 </tbody>

@@ -25,3 +25,14 @@ export async function createBooking(booking) {
         throw error
     }
 }
+
+export async function deleteBooking(id) {
+    try {
+        const response = await axios.delete(`${API_URL}/${id}`)
+        return response.data
+
+    } catch(error) {
+        console.log(error)
+        throw error
+    }
+}
