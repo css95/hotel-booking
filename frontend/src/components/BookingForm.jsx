@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { createBooking } from "../api/bookingApi"
+import { useState } from 'react'
+import { createBooking } from '../api/bookingApi'
 
 function BookingForm({ roomType, onBack }) {
     const [formData, setFormData] = useState({
@@ -76,7 +76,7 @@ function BookingForm({ roomType, onBack }) {
                 <input type="date" name="check_out_date" value={formData.check_out_date} min={formData.check_in_date} onChange={handleChange} required />
             </label>
 
-            <div>
+            <div className="form-actions">
                 <button className="button" type="submit">Confirm booking</button>
                 <button className="button button--secondary" type="button" onClick={onBack}>Back to rooms</button>
             </div>

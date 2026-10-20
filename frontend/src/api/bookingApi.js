@@ -36,3 +36,14 @@ export async function deleteBooking(id) {
         throw error
     }
 }
+
+export async function updateBooking(id, booking) {
+    try {
+        const response = await axios.put(`${API_URL}/${id}`, booking)
+        return response.data
+
+    } catch(error) {
+        console.log(error)
+        throw error
+    }
+}
