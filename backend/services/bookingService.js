@@ -35,11 +35,6 @@ function validateBooking(booking) {
     if (booking.check_out_date <= booking.check_in_date) {
         throw badRequest("check_out_date must be after check_in_date");
     }
-
-    const today = new Date().toLocaleDateString('sv-SE')
-    if (booking.check_in_date < today) {
-        throw badRequest("check_in_date cannot be in the past");
-    }
     
 }
 
@@ -49,6 +44,12 @@ async function getBookings() {
 
 async function createBooking(newBooking) {
     validateBooking(newBooking);
+
+    const today = new Date().toLocaleDateString('sv-SE');
+    if (newBooking.check_in_date < today) {
+        throw badRequest("check_in_date cannot be in the past");
+    }
+
     return await daoCreateBooking(newBooking);
 }
 
