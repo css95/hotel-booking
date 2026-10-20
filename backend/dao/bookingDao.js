@@ -8,6 +8,13 @@ async function getBookings() {
 
 }
 
+async function getBookingById(id) {
+
+    const db = await database;
+    const booking = await db.get("SELECT * FROM booking WHERE id = ?", id);
+    return booking;
+}
+
 async function createBooking(newBooking) {
     
     const db = await database;
@@ -49,5 +56,6 @@ async function deleteBooking(id) {
 
 }
 
-module.exports = { getBookings, createBooking, updateBooking, deleteBooking }
+
+module.exports = { getBookings, getBookingById, createBooking, updateBooking, deleteBooking }
 

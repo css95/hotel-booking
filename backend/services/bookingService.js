@@ -1,5 +1,6 @@
 const {
     getBookings: daoGetBookings,
+    getBookingById: daoGetBookingById,
     createBooking: daoCreateBooking,
     updateBooking: daoUpdateBooking,
     deleteBooking: daoDeleteBooking
@@ -9,6 +10,12 @@ const {
 function badRequest(message) {
     const error = new Error(message);
     error.status = 400;
+    return error;
+}
+
+function notFound(message) {
+    const error = new Error(message);
+    error.status = 404;
     return error;
 }
 
@@ -42,6 +49,14 @@ async function getBookings() {
     return await daoGetBookings();
 }
 
+async function getBooking(id) {
+    const booking = await daoGetBookingById(id);
+    if (!booking) {
+        throw notFound("Booking not found");
+    }
+    return booking;
+}
+
 async function createBooking(newBooking) {
     validateBooking(newBooking);
 
@@ -62,5 +77,5 @@ async function deleteBooking(id) {
     return await daoDeleteBooking(id);
 }
 
-module.exports = { getBookings, createBooking, updateBooking, deleteBooking };
+module.exports = { getBookings, getBooking, createBooking, updateBooking, deleteBooking };
 
