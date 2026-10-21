@@ -1,4 +1,4 @@
-# Hotel Sjöaryd
+# Hotel Strandvik
 A hotel website with a public booking form and a hidden admin page.
 
 ## Tech stack
@@ -7,6 +7,7 @@ A hotel website with a public booking form and a hidden admin page.
 
 ## How to run
 Requires Node.js (developed with v24).
+Start the backend and the frontend in two separate terminals.
 
 ### Backend
 ```bash
@@ -17,6 +18,8 @@ node server.js
 (runs on http://localhost:3000, run it inside the backend folder)
 
 The SQLite database (`hotel.db`) is created automatically in the `backend` folder the first time the server starts, so no database setup is needed.
+
+To add a few sample bookings, run `node seed.js` once (inside the `backend` folder).
 
 
 ### Frontend
@@ -44,3 +47,4 @@ npm run dev
 - `services/bookingService.js`: checks that the booking data is correct before it is saved (for example that all fields are filled in and that check-out is after check-in).
 - `dao/bookingDao.js`: the only file that talks to the database. It has the functions to create, get, update and delete bookings.
 - `db.js`: connects to the SQLite database and creates the booking table if it does not exist.
+- `seed.js`: adds a few sample bookings 
