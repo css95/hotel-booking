@@ -6,7 +6,7 @@ function Layout() {
             <div>
                 <header className="site-header">
                     <div className="site-header__inner">
-                        <Link to="/" className="site-logo">Hotel Sjöaryd</Link>
+                        <Link to="/" className="site-logo">Hotel Strandvik</Link>
                     </div>
                 </header>
                 <main className="page">
