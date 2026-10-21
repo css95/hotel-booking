@@ -16,7 +16,10 @@ function BookingPage() {
 
     return (
         <>
-            <h1>Available rooms</h1>
+            <h1 className={selectedRoom === null ? '' : 'form-title'}>
+                {selectedRoom === null ? 'Available rooms' : 'Book your stay'}
+            </h1>
+            
             {selectedRoom === null ? (
                 <>
                     <p>

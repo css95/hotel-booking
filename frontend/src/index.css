@@ -2,12 +2,12 @@
   --bg: #f4f2ee;
   --surface: #ffffff;
   --text: #1f2421;
-  --muted: #5f6762;
+  --muted: #5f6567;
   --line: #dcd8d0;
-  --accent: #2f5d56;
-  --accent-dark: #244a44;
+  --accent: #3e707d;
+  --accent-dark: #243b4a;
   --error: #a3322b;
-  --success: #2f6b3a;
+  --success: #2f5f6b;
 }
 
 * {
@@ -120,6 +120,7 @@ h1 {
 
 .booking-form {
   max-width: 480px;
+  margin: 0 auto;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -156,6 +157,10 @@ h1 {
 .form-actions {
   display: flex;
   gap: 0.75rem;
+}
+
+.form-title {
+  text-align: center;
 }
 
 .message {
