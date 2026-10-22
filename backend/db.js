@@ -16,8 +16,8 @@ async function connectDatabase() {
                 guest_name TEXT NOT NULL,
                 guest_email TEXT NOT NULL,
                 guest_phone TEXT NOT NULL,
-                check_in_date TEXT NOT NULL,
-                check_out_date TEXT NOT NULL
+                check_in_date INTEGER NOT NULL,
+                check_out_date INTEGER NOT NULL
             )
         `);
 

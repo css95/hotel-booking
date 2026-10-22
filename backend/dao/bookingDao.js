@@ -1,18 +1,42 @@
 const database = require("../db");
 
+function convertDateToNumber(dateString) {
+    const dateNumber = Date.parse(dateString);
+    return dateNumber;
+}
+
+function convertDateToString(dateNumber) {
+    const dateString = new Date(dateNumber).toISOString().slice(0, 10);
+    return dateString;
+}
+
+function convertBookingDatesToStrings(booking) {
+    return { 
+        ...booking, 
+        check_in_date: convertDateToString(booking.check_in_date), 
+        check_out_date: convertDateToString(booking.check_out_date) 
+    };
+}
+
 async function getBookings() {
 
     const db = await database;
-    const bookings = await db.all("SELECT * FROM booking");
+    const bookingRows = await db.all("SELECT * FROM booking");
+    const bookings = bookingRows.map(convertBookingDatesToStrings);
     return bookings;
-
 }
 
 async function getBookingById(id) {
 
     const db = await database;
-    const booking = await db.get("SELECT * FROM booking WHERE id = ?", id);
-    return booking;
+    const bookingRow = await db.get("SELECT * FROM booking WHERE id = ?", id);
+
+    if (!bookingRow) {
+        return undefined;
+    } else {
+        const booking = convertBookingDatesToStrings(bookingRow);
+        return booking;
+    }
 }
 
 async function createBooking(newBooking) {
@@ -24,8 +48,8 @@ async function createBooking(newBooking) {
         newBooking.guest_name,
         newBooking.guest_email,
         newBooking.guest_phone,
-        newBooking.check_in_date,
-        newBooking.check_out_date
+        convertDateToNumber(newBooking.check_in_date),
+        convertDateToNumber(newBooking.check_out_date)
     );
 
     return result.lastID;
@@ -42,8 +66,8 @@ async function updateBooking(id, updatedBooking) {
         updatedBooking.guest_name,
         updatedBooking.guest_email,
         updatedBooking.guest_phone,
-        updatedBooking.check_in_date,
-        updatedBooking.check_out_date,
+        convertDateToNumber(updatedBooking.check_in_date),
+        convertDateToNumber(updatedBooking.check_out_date),
         id
     );
 
